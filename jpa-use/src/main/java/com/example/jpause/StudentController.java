@@ -6,6 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -42,15 +45,23 @@ public class StudentController {
         return new ResponseEntity("Invalid Rollno",HttpStatus.NOT_FOUND);
     }
 
+     
+
     @DeleteMapping("/delete_all")
     public ResponseEntity deleteAllData(){
         studentService.deleteAllData();
         return new ResponseEntity("Done",HttpStatus.CREATED);
     }
 
-//    @GetMapping("/get_data_by_name/{name}")
-//    public ResponseEntity getDataByName(@PathVariable("name")String name){
-//
-//    }
+
+    @GetMapping("/get_data_by_name/{name}")
+    public ResponseEntity getDataByName(@PathVariable("name")String name){
+        List<Student>student=new ArrayList<>();
+        if(student.size()==0){
+            return new ResponseEntity("there is no student with this name",HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(student,HttpStatus.FOUND);
+
+    }
 
 }

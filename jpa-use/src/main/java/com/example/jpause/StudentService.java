@@ -3,6 +3,7 @@ package com.example.jpause;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ public class StudentService {
     StudentRepositary studentRepositary;
 
     public void addStudent(Student student){
+
         studentRepositary.save(student);
     }
 
@@ -37,17 +39,26 @@ public class StudentService {
         if(optionalStudent.isPresent()){
            Student student= studentRepositary.getReferenceById(rollNo);
            student.setAge(age);
+           studentRepositary.save(student);
            return true;
         }
         return false;
     }
 
+
     public void deleteAllData() {
         studentRepositary.deleteAll();
     }
-//    public List<Student> getDataByName(String name){
-//        List<Student> list=studentRepositary.findAll()
-//    }
+
+
+    public List<Student> getDataByName(String name){
+        List<Student> list=studentRepositary.findAll();
+        List<Student>ans=new ArrayList<>();
+        for(Student student: list){
+            if(student.getName().equals(name))ans.add(student);
+        }
+        return ans;
+    }
 
 
 }
