@@ -58,6 +58,7 @@ public class StudentController {
     public ResponseEntity getDataByName(@PathVariable("name")String name){
         List<Student>student=new ArrayList<>();
         if(student.size()==0){
+            System.out.println("akjdf");
             return new ResponseEntity("there is no student with this name",HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity(student,HttpStatus.FOUND);
